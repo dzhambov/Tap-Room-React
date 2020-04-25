@@ -12,14 +12,17 @@ class ItemControl extends React.Component {
 
   render() {
       let currentlyVisibleState = null;
+      let addItemButton = null;
       if (this.state.formVisivleOnPage) {
         currentlyVisibleState = <NewItemForm />
       } else {
         currentlyVisibleState = <ItemList />
+        addTicketButton = <button onClick={this.handleClick}>Add Item</button>
       }
       return (
       <React.Fragment>
         {currentlyVisibleState}
+        {addItemButton}
       </React.Fragment>
     );
   }
