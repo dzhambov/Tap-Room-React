@@ -3,7 +3,12 @@ import Item from "./Item";
 
 function ItemList(){
   return (
-    <Item />
+    <React.Fragment>
+      <Item 
+      name="Beer"
+      brand="Heineken"/>
+
+    </React.Fragment>
   );
 }
 
