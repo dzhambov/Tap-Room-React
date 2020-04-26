@@ -3,29 +3,49 @@ import NewItemForm from "./NewItemForm";
 import ItemList from "./ItemList";
 
 class ItemControl extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      formVisivleOnPage: false
+      formVisibleOnPage: false,
+      masterItemList: [],
+      selectedItem: null
     };
   }
 
-  render() {
-      let currentlyVisibleState = null;
-      let addItemButton = null;
+  handleClick = () => {
+    this.setState(prevState =>({formVisivleOnPage: !prevState.formVisivleOnPage}));
+  }
+
+  handleNewItemSubmission = (newItem) => {
+    const newMasterItemList = this.state.masterItemList.concat(newItem);
+    this.setState({masterItemList: newMasterItemList, formVisibleOnPage: false});
+  }
+
+  setVisibility = () => {
       if (this.state.formVisivleOnPage) {
-        currentlyVisibleState = <NewItemForm />
+        return {
+          buttonText: "Return to Item List",
+          component:  <NewItemForm onNewItemCreation={this.handleNewItemSubmission} />
+        }
       } else {
-        currentlyVisibleState = <ItemList />
-        addTicketButton = <button onClick={this.handleClick}>Add Item</button>
+        return {
+          buttonText: "Add Item",
+          component: <ItemList itemList={this.state.masterItemList}/>
+        }
       }
+  }
+
+  render() {
+      let currentlyVisibleState = this.setVisibility();
       return (
       <React.Fragment>
-        {currentlyVisibleState}
-        {addItemButton}
+        {currentlyVisibleState.component}
+        <button onClick={this.handleClick}>{currentlyVisibleState.buttonText}</button>
       </React.Fragment>
     );
   }
 }
+
 
 export default ItemControl;

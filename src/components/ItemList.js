@@ -1,38 +1,28 @@
 import React from "react";
 import Item from "./Item";
+import PropTypes from "prop-types";
 
-const masterItemList = [
-  {
-    name: "Beer",
-    brand: "Heineken",
-    flavor: "Refreshing",
-    price: "$6",
-    quantity: "124"
-  },
-  {
-    name: "Kombucha",
-    brand: "Bao",
-    flavor: "Refreshing",
-    price: "$4",
-    quantity: "124"
-  }
-];
-
-
-function ItemList(){
+function ItemList(props){
+  // const { items } = props
   return (
     <React.Fragment>
       <hr/>
-      {masterItemList.map((item, itemId) =>
-      <Item name={item.name}
-            brand={item.brand}
-            flavor={item.flavor}
-            price={item.price}
-            quantity={item.quantity}
-            key={itemId}/>
+      {props.itemList.map((item) =>
+      <Item 
+        name={item.name}
+        brand={ item.brand}
+        flavor= {item.flavor}
+        price={item.price}
+        quantity={item.quantity}
+        id={item.id}
+        key={item.Id}/>
       )}
     </React.Fragment>
   );
 }
+
+ItemList.propTypes = {
+  itemList: PropTypes.array
+};
 
 export default ItemList;
