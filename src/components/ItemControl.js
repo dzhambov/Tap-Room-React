@@ -2,6 +2,7 @@ import React from "react";
 import NewItemForm from "./NewItemForm";
 import ItemList from "./ItemList";
 import masterItemList from "./masterItemList";
+import ItemDetail from './ItemDetail';
 
 class ItemControl extends React.Component {
 
@@ -10,12 +11,27 @@ class ItemControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       masterItemList: [],
+      selectedItem: null,
       itemList: props.list
     };
   }
 
   handleClick = () => {
-    this.setState(prevState =>({formVisivleOnPage: !prevState.formVisivleOnPage}));
+    if(this.state.selectedItem != null) {
+      this.setState({
+        formVisibleOnPage: false,
+        selectedItem: null
+      });
+    }else{
+      this.setState(prevState => ({
+        formVisibleOnPage: !prevState.formVisibleOnPage,
+      }));
+    }
+  }
+
+  handleChangingSelectedItem = (id) => {
+    const selectedItem = this.state.masterItemList.filter(item => item.id === id)[0];
+    this.setState({selectedItem: selectedItem});
   }
 
   handleNewItemSubmission = (newItem) => {
@@ -33,19 +49,26 @@ class ItemControl extends React.Component {
   }
 
   setVisibility = () => {
-      if (this.state.formVisivleOnPage) {
-        return {
-          buttonText: "Return to Item List",
-          component:  <NewItemForm onNewItemCreation={this.handleNewItemSubmission} />
-        }
-      } else {
-        return {
-          buttonText: "Add Item",
-          component: <ItemList itemList={this.state.masterItemList}
-          onBuyItem={this.handleBuyItem}/>
-        }
+    if(this.state.selectedItem !=null) {
+      return{
+        buttonText: "Return to Items",
+        component: <ItemDetail item={this.state.selectedItem}/>
       }
+    }
+    else if (this.state.formVisivleOnPage) {
+      return {
+        buttonText: "Return to Item List",
+        component:  <NewItemForm onNewItemCreation={this.handleNewItemSubmission} />
+      }
+    } else {
+      return {
+        buttonText: "Add Item",
+        component: <ItemList itemList={this.state.masterItemList}
+        onBuyItem={this.handleBuyItem}/>
+      }
+    }
   }
+
 
   render() {
       let currentlyVisibleState = this.setVisibility();

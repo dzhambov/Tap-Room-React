@@ -3,12 +3,13 @@ import Item from "./Item";
 import PropTypes from "prop-types";
 
 function ItemList(props){
-  const { itemList, onBuyItem } = props
+
   return (
     <React.Fragment>
-      {/* <hr/> */}
+      <hr/>
       {props.itemList.map((item) =>
       <Item 
+        whenItemClicked = { props.onItemSelection }
         name={item.name}
         brand= {item.brand}
         flavor= {item.flavor}
@@ -16,14 +17,15 @@ function ItemList(props){
         quantity= {item.quantity}
         id={item.id}
         key={item.Id}
-        buyItem={onBuyItem}/>
+        buyItem={props.onBuyItem}/>
       )}
     </React.Fragment>
   );
 }
 
 ItemList.propTypes = {
-  itemList: PropTypes.array
+  itemList: PropTypes.array,
+  onItemSelection: PropTypes.func
 };
 
 export default ItemList;
