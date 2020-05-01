@@ -12,12 +12,12 @@ class ItemControl extends React.Component {
       formVisibleOnPage: false,
       masterItemList: [],
       selectedItem: null,
-      itemList: props.list
+      // itemList: Item
     };
   }
 
   handleClick = () => {
-    if(this.state.selectedItem != null) {
+    if(this.state.selectedItem !== null) {
       this.setState({
         formVisibleOnPage: false,
         selectedItem: null
@@ -29,15 +29,25 @@ class ItemControl extends React.Component {
     }
   }
 
-  handleChangingSelectedItem = (id) => {
-    const selectedItem = this.state.masterItemList.filter(item => item.id === id)[0];
-    this.setState({selectedItem: selectedItem});
+  handleAddNewItemToList = (newItem) => {
+    const newMasterItemList = this.state.masterItemList.concat(newItem);
+    this.setState({masterItemList: newMasterItemList, 
+    formVisibleOnPage: false
+    });
   }
 
-  handleNewItemSubmission = (newItem) => {
-    const newMasterItemList = this.state.masterItemList.concat(newItem);
-    this.setState({masterItemList: newMasterItemList, formVisibleOnPage: false});
+  handleChangingSelectedItem = (id) => {
+    const selectedItem = this.state.masterItemList.filter(item => item.id === id)[0];
+    this.setState({selectedItem: selectedItem
+    });
   }
+
+  // handleNewItemSubmission = (newItem) => {
+  //   const newMasterItemList = this.state.masterItemList.concat(newItem);
+  //   this.setState({masterItemList: newMasterItemList,
+  //   formVisibleOnPage: false
+  //   });
+  // }
 
   handleBuyItem = (id) => {
     const selectedItem = this.state.itemList.filter(item => item.id === id)[0];
@@ -49,18 +59,19 @@ class ItemControl extends React.Component {
   }
 
   setVisibility = () => {
-    if(this.state.selectedItem !=null) {
+    if(this.state.selectedItem !== null) {
       return{
         buttonText: "Return to Items",
         component: <ItemDetail item={this.state.selectedItem}/>
       }
     }
-    else if (this.state.formVisivleOnPage) {
+    else if (this.state.formVisibleOnPage) {
       return {
         buttonText: "Return to Item List",
-        component:  <NewItemForm onNewItemCreation={this.handleNewItemSubmission} />
+        component:  <NewItemForm onNewItemCreation={this.handleAddNewItemToList} />
       }
-    } else {
+    }
+    else {
       return {
         buttonText: "Add Item",
         component: <ItemList itemList={this.state.masterItemList}
@@ -68,8 +79,7 @@ class ItemControl extends React.Component {
       }
     }
   }
-
-
+  
   render() {
       let currentlyVisibleState = this.setVisibility();
       return (
@@ -81,5 +91,19 @@ class ItemControl extends React.Component {
   }
 }
 
+// ItemControl.propTypes = {
+//   masterItemList: PropTypes.object
+// };
+
 
 export default ItemControl;
+
+
+
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@ function ItemList(props){
 
   return (
     <React.Fragment>
-      <hr/>
+      {/* <hr/> */}
       {props.itemList.map((item) =>
       <Item 
         whenItemClicked = { props.onItemSelection }
