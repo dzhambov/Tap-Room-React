@@ -42,12 +42,12 @@ class ItemControl extends React.Component {
     });
   }
 
-  handleNewItemSubmission = (newItem) => {
-    const newMasterItemList = this.state.masterItemList.concat(newItem);
-    this.setState({masterItemList: newMasterItemList,
-    formVisibleOnPage: false
-    });
-  }
+  // handleNewItemSubmission = (newItem) => {
+  //   const newMasterItemList = this.state.masterItemList.concat(newItem);
+  //   this.setState({masterItemList: newMasterItemList,
+  //   formVisibleOnPage: false
+  //   });
+  // }
 
   handleBuyItem = (id) => {
     const selectedItem = this.state.itemList.filter(item => item.id === id)[0];
@@ -75,7 +75,8 @@ class ItemControl extends React.Component {
     else {
       return {
         buttonText: "Add Item",
-        component: <ItemList itemList={this.state.masterItemList}
+        component: <ItemList itemList={this.state.masterItemList} 
+        onItemSelection={this.handleChangingSelectedItem}
         onBuyItem={this.handleBuyItem}/>
       }
     }

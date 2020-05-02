@@ -6,7 +6,7 @@ function ItemDetail(props){
 
   return(
     <React.Fragment>
-      <h1>Item Details</h1>
+      <h1>Item Details:</h1>
       <h3>{item.name}</h3>
       <h3>{item.brand}</h3>
       <h3>{item.flavor}</h3>
