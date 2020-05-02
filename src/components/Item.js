@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Item(props){
-  const { buyItem } = props;
+  const { buyItem, restockItem } = props;
   return (
     <React.Fragment>
         <div className="col-md-4">
@@ -12,7 +12,6 @@ function Item(props){
           <h4><em>Flavor:</em> {props.flavor}</h4>
           <h4><em>Price:</em> {props.price}</h4>
           <h5><em>Quantity:</em> {props.quantity}</h5>
-          <hr/>
           <div className="buttons">
             {props.quantity <= 0 && 
             <p>Sorry, this Item is out of stock</p>
@@ -20,6 +19,8 @@ function Item(props){
             {props.quantity > 0 &&
             <button onClick={() => props.buyItem(props.id)}>Buy</button>
             }
+            <button onClick={() => props.restockItem(props.id)}>Restock</button>
+            <hr/>
           </div>
         </div>
       </div>

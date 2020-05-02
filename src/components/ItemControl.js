@@ -54,6 +54,17 @@ class ItemControl extends React.Component {
       selectedItem: newItem
     });
   }
+
+  handleRestockItem = (id) => {
+    const currentSelectedItem = this.state.masterItemList.filter(item => item.id === id)[0];
+    const newItemInfo = currentSelectedItem.quantity + 124;
+    const newItem = {...currentSelectedItem, quantity: newItemInfo}
+    const OldItem = this.state.masterItemList.filter(item => item.id !== id)
+    this.setState({
+      masterItemList: [...OldItem, newItem],
+      selectedItem: newItem
+    });
+  }
   
   setVisibility = () => {
     if(this.state.selectedItem !== null) {
@@ -74,6 +85,7 @@ class ItemControl extends React.Component {
         component: <ItemList 
         itemList={this.state.masterItemList} 
         onItemSelection={this.handleChangingSelectedItem}
+        onRestockItem ={this.handleRestockItem}
         onBuyItem={this.handleBuyItem}/>
       }
     }
