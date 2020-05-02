@@ -31,34 +31,30 @@ class ItemControl extends React.Component {
 
   handleAddNewItemToList = (newItem) => {
     const newMasterItemList = this.state.masterItemList.concat(newItem);
-    this.setState({masterItemList: newMasterItemList, 
-    formVisibleOnPage: false
+    this.setState({
+      masterItemList: newMasterItemList, 
+      formVisibleOnPage: false
     });
   }
 
   handleChangingSelectedItem = (id) => {
     const selectedItem = this.state.masterItemList.filter(item => item.id === id)[0];
-    this.setState({selectedItem: selectedItem
+    this.setState({
+      selectedItem: selectedItem
     });
   }
-
-  // handleNewItemSubmission = (newItem) => {
-  //   const newMasterItemList = this.state.masterItemList.concat(newItem);
-  //   this.setState({masterItemList: newMasterItemList,
-  //   formVisibleOnPage: false
-  //   });
-  // }
 
   handleBuyItem = (id) => {
-    const selectedItem = this.state.itemList.filter(item => item.id === id)[0];
-    const newItemInfo = selectedItem.quantity -1;
-    const newItem = {...selectedItem, quantity: newItemInfo}
-    const removingOldItem = this.state.itemList.filter(item => item.id !== id)
-    const newItemList = removingOldItem.concat(newItem)
-    this.setState({itemList: newItemList
+    const currentSelectedItem = this.state.masterItemList.filter(item => item.id === id)[0];
+    const newItemSell = currentSelectedItem.quantity -1;
+    const newItem = {...currentSelectedItem, quantity: newItemSell}
+    const OldItem = this.state.masterItemList.filter(item => item.id !== id)
+    this.setState({
+      masterItemList: [...OldItem, newItem],
+      selectedItem: newItem
     });
   }
-
+  
   setVisibility = () => {
     if(this.state.selectedItem !== null) {
       return{
@@ -75,7 +71,8 @@ class ItemControl extends React.Component {
     else {
       return {
         buttonText: "Add Item",
-        component: <ItemList itemList={this.state.masterItemList} 
+        component: <ItemList 
+        itemList={this.state.masterItemList} 
         onItemSelection={this.handleChangingSelectedItem}
         onBuyItem={this.handleBuyItem}/>
       }
@@ -83,8 +80,8 @@ class ItemControl extends React.Component {
   }
   
   render() {
-      let currentlyVisibleState = this.setVisibility();
-      return (
+    let currentlyVisibleState = this.setVisibility();
+    return (
       <React.Fragment>
         {currentlyVisibleState.component}
         <button onClick={this.handleClick}>{currentlyVisibleState.buttonText}</button>
@@ -94,18 +91,8 @@ class ItemControl extends React.Component {
 }
 
 // ItemControl.propTypes = {
-//   masterItemList: PropTypes.object
-// };
-
-
-export default ItemControl;
-
-
-
-
-
-
-
-
-
-
+  //   masterItemList: PropTypes.object
+  // };
+  
+  
+  export default ItemControl;
