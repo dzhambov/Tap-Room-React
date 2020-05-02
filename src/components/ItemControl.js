@@ -3,6 +3,7 @@ import NewItemForm from "./NewItemForm";
 import ItemList from "./ItemList";
 import masterItemList from "./masterItemList";
 import ItemDetail from './ItemDetail';
+import PropTypes from 'prop-types';
 
 class ItemControl extends React.Component {
 
@@ -12,7 +13,6 @@ class ItemControl extends React.Component {
       formVisibleOnPage: false,
       masterItemList: [],
       selectedItem: null,
-      // itemList: Item
     };
   }
 
@@ -42,20 +42,21 @@ class ItemControl extends React.Component {
     });
   }
 
-  // handleNewItemSubmission = (newItem) => {
-  //   const newMasterItemList = this.state.masterItemList.concat(newItem);
-  //   this.setState({masterItemList: newMasterItemList,
-  //   formVisibleOnPage: false
-  //   });
-  // }
+  handleNewItemSubmission = (newItem) => {
+    const newMasterItemList = this.state.masterItemList.concat(newItem);
+    this.setState({masterItemList: newMasterItemList,
+    formVisibleOnPage: false
+    });
+  }
 
   handleBuyItem = (id) => {
     const selectedItem = this.state.itemList.filter(item => item.id === id)[0];
     const newItemInfo = selectedItem.quantity -1;
-    const removingOldItem = this.state.itemList.filter(item => item.id !== id)
     const newItem = {...selectedItem, quantity: newItemInfo}
+    const removingOldItem = this.state.itemList.filter(item => item.id !== id)
     const newItemList = removingOldItem.concat(newItem)
-    this.setState({itemList: newItemList})
+    this.setState({itemList: newItemList
+    });
   }
 
   setVisibility = () => {
