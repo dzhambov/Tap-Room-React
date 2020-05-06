@@ -1,9 +1,9 @@
 import React from "react";
 import NewItemForm from "./NewItemForm";
 import ItemList from "./ItemList";
-import masterItemList from "./masterItemList";
+// import masterItemList from "./masterItemList";
 import ItemDetail from './ItemDetail';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class ItemControl extends React.Component {
 
@@ -51,7 +51,6 @@ class ItemControl extends React.Component {
     const OldItem = this.state.masterItemList.filter(item => item.id !== id)
     this.setState({
       masterItemList: [...OldItem, newItem],
-      selectedItem: newItem
     });
   }
 
@@ -62,7 +61,6 @@ class ItemControl extends React.Component {
     const OldItem = this.state.masterItemList.filter(item => item.id !== id)
     this.setState({
       masterItemList: [...OldItem, newItem],
-      selectedItem: newItem
     });
   }
   

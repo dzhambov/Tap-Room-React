@@ -11,7 +11,7 @@ function NewItemForm(props) {
       brand: event.target.itemBrand.value,
       flavor: event.target.itemFlavor.value,
       price: event.target.itemPrice.value,
-      quantity: event.target.quantity.value,
+      quantity: parseInt(event.target.quantity.value),
       id: v4(),
     })
   }
