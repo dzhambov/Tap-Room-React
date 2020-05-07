@@ -1,9 +1,8 @@
 import React from "react";
 import NewItemForm from "./NewItemForm";
 import ItemList from "./ItemList";
-import masterItemList from "./masterItemList";
 import ItemDetail from './ItemDetail';
-import PropTypes from 'prop-types';
+import EditItemForm from './EditItemForm';
 
 class ItemControl extends React.Component {
 
@@ -51,7 +50,6 @@ class ItemControl extends React.Component {
     const OldItem = this.state.masterItemList.filter(item => item.id !== id)
     this.setState({
       masterItemList: [...OldItem, newItem],
-      selectedItem: newItem
     });
   }
 
@@ -62,15 +60,35 @@ class ItemControl extends React.Component {
     const OldItem = this.state.masterItemList.filter(item => item.id !== id)
     this.setState({
       masterItemList: [...OldItem, newItem],
-      selectedItem: newItem
+    });
+  }
+
+  handleEditClick = () => {
+    this.setState({editing:true});
+  }
+
+  handleEditingItemInList = (itemToEdit) => {
+    const editedMasterItemList  = this.state.masterItemList.filter(item => item.id !== this.state.selectedItem.id).concat(itemToEdit);
+    this.setState({
+      masterItemList: editedMasterItemList,
+      editing: false,
+      selectedItem: null
     });
   }
   
   setVisibility = () => {
-    if(this.state.selectedItem !== null) {
+    if(this.state.editing){
+      return {
+      buttonText: "Return to Item List",
+      component: <EditItemForm item={this.state.selectedItem} onEditItem = {this.handleEditingItemInList} />
+      }
+    }
+    else if(this.state.selectedItem !== null) {
       return{
         buttonText: "Return to Items",
-        component: <ItemDetail item={this.state.selectedItem}/>
+        component: <ItemDetail 
+        item={this.state.selectedItem}
+        onClickingEdit = {this.handleEditClick}/>
       }
     }
     else if (this.state.formVisibleOnPage) {
@@ -101,10 +119,5 @@ class ItemControl extends React.Component {
     );
   }
 }
-
-// ItemControl.propTypes = {
-  //   masterItemList: PropTypes.object
-  // };
-  
-  
-  export default ItemControl;
+   
+export default ItemControl;

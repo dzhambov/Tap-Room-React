@@ -7,10 +7,11 @@ function ItemDetail(props){
   return(
     <React.Fragment>
       <h1>Item Details:</h1>
-      <h3>{item.name}</h3>
-      <h3>{item.brand}</h3>
-      <h3>{item.flavor}</h3>
-      <h3>{item.price}</h3>
+      <h3>Item: <em>{item.name}</em></h3>
+      <h3>Brand: <em>{item.brand}</em></h3>
+      <h3>Flavor: <em>{item.flavor}</em></h3>
+      <h3>Quantity Left: <em>{item.quantity}</em></h3>
+      <h3>Price: <em>{item.price}</em></h3>
       <hr />
     </React.Fragment>
   );
