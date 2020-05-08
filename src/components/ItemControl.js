@@ -12,6 +12,7 @@ class ItemControl extends React.Component {
       formVisibleOnPage: false,
       masterItemList: [],
       selectedItem: null,
+      editing: false
     };
   }
 
