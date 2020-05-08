@@ -63,6 +63,14 @@ class ItemControl extends React.Component {
     });
   }
 
+  handleDeletingItem = (id) => {
+    const newMasterItemList = this.state.masterItemList.filter(item => item.id !== id);
+    this.setState({
+      masterItemList: newMasterItemList,
+      selectedItem: null
+    });
+  }
+
   handleEditClick = () => {
     this.setState({editing:true});
   }
@@ -88,6 +96,7 @@ class ItemControl extends React.Component {
         buttonText: "Return to Items",
         component: <ItemDetail 
         item={this.state.selectedItem}
+        onClickingDelete={this.handleDeletingItem}
         onClickingEdit = {this.handleEditClick}/>
       }
     }
