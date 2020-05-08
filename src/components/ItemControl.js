@@ -20,7 +20,8 @@ class ItemControl extends React.Component {
     if(this.state.selectedItem !== null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedItem: null
+        selectedItem: null,
+        editing: false
       });
     }else{
       this.setState(prevState => ({
@@ -88,9 +89,9 @@ class ItemControl extends React.Component {
   setVisibility = () => {
     if(this.state.editing){
       return {
-      buttonText: "Return to Item List",
-      component: <EditItemForm item={this.state.selectedItem} 
-      onEditItem = {this.handleEditingItemInList} />
+        component: <EditItemForm item = {this.state.selectedItem} 
+        onEditItem = {this.handleEditingItemInList} />,
+        buttonText: "Return to Items"
       }
     }
     else if(this.state.selectedItem !== null) {
