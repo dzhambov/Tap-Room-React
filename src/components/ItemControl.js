@@ -88,7 +88,8 @@ class ItemControl extends React.Component {
     if(this.state.editing){
       return {
       buttonText: "Return to Item List",
-      component: <EditItemForm item={this.state.selectedItem} onEditItem = {this.handleEditingItemInList} />
+      component: <EditItemForm item={this.state.selectedItem} 
+      onEditItem = {this.handleEditingItemInList} />
       }
     }
     else if(this.state.selectedItem !== null) {
