@@ -5,14 +5,13 @@ import ItemDetail from './ItemDetail';
 import EditItemForm from './EditItemForm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Item from "./Item";
+
 
 class ItemControl extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false,
       selectedItem: null,
       editing: false
     };
@@ -21,14 +20,15 @@ class ItemControl extends React.Component {
   handleClick = () => {
     if(this.state.selectedItem !== null) {
       this.setState({
-        formVisibleOnPage: false,
         selectedItem: null,
         editing: false
       });
-    }else{
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage,
-      }));
+    } else {
+      const { dispatch } = this.props;
+      const action = {
+        type: 'TOGGLE_FORM'
+      }
+      dispatch(action);
     }
   }
 
@@ -105,7 +105,7 @@ class ItemControl extends React.Component {
         onClickingEdit = {this.handleEditClick}/>
       }
     }
-    else if (this.state.formVisibleOnPage) {
+    else if (this.props.formVisibleOnPage) {
       return {
         buttonText: "Return to Item List",
         component:  <NewItemForm onNewItemCreation={this.handleAddNewItemToList} />
@@ -140,7 +140,8 @@ ItemControl.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    masterItemList: state
+    masterItemList: state.masterItemList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
