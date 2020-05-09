@@ -4,6 +4,8 @@ import ItemList from "./ItemList";
 import ItemDetail from './ItemDetail';
 import EditItemForm from './EditItemForm';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Item from "./Item";
 
 class ItemControl extends React.Component {
 
@@ -39,7 +41,7 @@ class ItemControl extends React.Component {
   }
 
   handleChangingSelectedItem = (id) => {
-    const selectedItem = this.state.masterItemList.filter(item => item.id === id)[0];
+    const selectedItem = this.props.masterItemList[id];
     this.setState({
       selectedItem: selectedItem
     });
@@ -113,7 +115,7 @@ class ItemControl extends React.Component {
       return {
         buttonText: "Add Item",
         component: <ItemList 
-        itemList={this.state.masterItemList} 
+        itemList={this.props.masterItemList} 
         onItemSelection={this.handleChangingSelectedItem}
         onRestockItem ={this.handleRestockItem}
         onBuyItem={this.handleBuyItem}/>
@@ -132,6 +134,16 @@ class ItemControl extends React.Component {
   }
 }
 
-ItemControl = connect()(ItemControl);
+ItemControl.propTypes = {
+  masterItemList: PropTypes.object
+};
+
+const mapStateToProps = state => {
+  return {
+    masterItemList: state
+  }
+}
+
+ItemControl = connect(mapStateToProps)(ItemControl);
    
 export default ItemControl;
