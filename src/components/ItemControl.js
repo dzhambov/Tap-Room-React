@@ -5,6 +5,7 @@ import ItemDetail from './ItemDetail';
 import EditItemForm from './EditItemForm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as a from './../actions';
 
 
 class ItemControl extends React.Component {
@@ -25,19 +26,17 @@ class ItemControl extends React.Component {
       });
     } else {
       const { dispatch } = this.props;
-      const action = {
-        type: 'TOGGLE_FORM'
-      }
+      const action = a.toggleForm();
       dispatch(action);
     }
   }
 
   handleAddNewItemToList = (newItem) => {
-    const newMasterItemList = this.state.masterItemList.concat(newItem);
-    this.setState({
-      masterItemList: newMasterItemList, 
-      formVisibleOnPage: false
-    });
+    const { dispatch } = this.props;
+    const action = a.addItem(newItem);
+    dispatch(action);
+    const action2 = a.toggleForm();
+    dispatch(action2);
   }
 
   handleChangingSelectedItem = (id) => {
@@ -68,11 +67,10 @@ class ItemControl extends React.Component {
   }
 
   handleDeletingItem = (id) => {
-    const newMasterItemList = this.state.masterItemList.filter(item => item.id !== id);
-    this.setState({
-      masterItemList: newMasterItemList,
-      selectedItem: null
-    });
+    const { dispatch } = this.props;
+    const action = a.deleteItem(id);
+    dispatch(action);
+    this.setState({selectedItem: null});
   }
 
   handleEditClick = () => {
@@ -80,9 +78,10 @@ class ItemControl extends React.Component {
   }
 
   handleEditingItemInList = (itemToEdit) => {
-    const editedMasterItemList  = this.state.masterItemList.filter(item => item.id !== this.state.selectedItem.id).concat(itemToEdit);
+    const { dispatch } = this. props;
+    const action = a.addItem(itemToEdit);
+    dispatch(action);
     this.setState({
-      masterItemList: editedMasterItemList,
       editing: false,
       selectedItem: null
     });

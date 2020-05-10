@@ -8,7 +8,7 @@
 _A web application that is built in React to track taproom's inventory and the selections are listed by name, brand, flavor and price. The application helps the user to list the selection, add new items, see details and track how many pints are left in a keg._
 
 ## Component Tree
-![Component Tree Image](Tap-Room.png)
+![Component Tree Image](src/img/Tap-Room.png)
 
 ## Specifications
 * The user is able to create, read, and update taps in the tap room.
